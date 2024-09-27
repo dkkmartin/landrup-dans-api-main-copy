@@ -1,41 +1,43 @@
-var { Asset } = require("../models/models");
-var saveFile = require("../services/asset");
+var { Asset } = require('../models/models')
+var saveFile = require('../services/asset')
+
+const baseUrl = process.env.BASE_URL || 'http://localhost:4000'
 
 async function createSingleAsset(req, res, next) {
-	try {
-		let file = saveFile(req.files.file);
-		let asset = await Asset.create({
-			url: "http://localhost:4000/file-bucket/" + file
-		});
-		res.json(asset);
-	} catch (error) {
-		console.error(error);
-		res.status(500).end();
-	}
+  try {
+    let file = saveFile(req.files.file)
+    let asset = await Asset.create({
+      url: `${baseUrl}/file-bucket/${file}`,
+    })
+    res.json(asset)
+  } catch (error) {
+    console.error(error)
+    res.status(500).end()
+  }
 }
 
 async function getAllAssets(req, res, next) {
-	try {
-		let assets = await Asset.findAll();
-		res.json(assets);
-	} catch (error) {
-		console.error(error);
-		res.status(500).end();
-	}
+  try {
+    let assets = await Asset.findAll()
+    res.json(assets)
+  } catch (error) {
+    console.error(error)
+    res.status(500).end()
+  }
 }
 
 async function getSingleAsset(req, res, next) {
-	try {
-		let asset = await Asset.findByPk(req.params.id);
-		res.json(asset);
-	} catch (error) {
-		console.error(error);
-		res.status(500).end();
-	}
+  try {
+    let asset = await Asset.findByPk(req.params.id)
+    res.json(asset)
+  } catch (error) {
+    console.error(error)
+    res.status(500).end()
+  }
 }
 
 module.exports = {
-	createSingleAsset,
-	getAllAssets,
-	getSingleAsset
-};
+  createSingleAsset,
+  getAllAssets,
+  getSingleAsset,
+}
