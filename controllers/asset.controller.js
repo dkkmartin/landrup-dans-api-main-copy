@@ -1,7 +1,7 @@
 var { Asset } = require('../models/models')
 var saveFile = require('../services/asset')
 
-const baseUrl = process.env.BASE_URL || 'http://localhost:4000'
+const baseUrl = process.env.BASE_URL
 
 async function createSingleAsset(req, res, next) {
   try {
